@@ -1,5 +1,5 @@
 # Python code to save a list to a .txt file including the brackets
-
+import re
 import os
 from datetime import datetime
 
@@ -23,9 +23,22 @@ def save_list_to_file(list_to_save, base_directory, file_name):
     with open(full_file_path, 'w') as file:
         file.write(list_as_string)
 
+def get_before_at(text):
+    match = re.search(r'([^@]+)@(.+)', text)
+    if match:
+        before_at = match.group(1)
+        return before_at
+    else:
+        return None
+
+def get_after_at(text):
+    match = re.search(r'([^@]+)@(.+)', text)
+    if match:
+        after_at = match.group(2)
+        return after_at
+    else:
+        return None 
+    
 # Example usage
 if __name__ == "__main__":
-    sample_list = ['A@12345', 'B@23456', 'C@34567', 'D@45678', 'E@56789', 'F@67890']
-    base_directory = "backup" 
-    file_name = "backup_data.txt"
-    save_list_to_file(sample_list, base_directory, file_name)
+    pass
