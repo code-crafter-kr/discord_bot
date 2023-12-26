@@ -1,10 +1,10 @@
 import discord
+import global_def as gd
 
 intents = discord.Intents.default()
 intents.guilds = True
 intents.members = True  # 멤버 목록을 가져오기 위해 필요
 client = discord.Client(intents=intents)
-
 
 @client.event
 async def on_ready():
@@ -24,6 +24,11 @@ async def on_ready():
                     print(f'Members in {channel.name}: {member_list}')
                 else:
                     print(f'No members in {channel.name}')
+
     print("All members in voice channels:", all_members)
     print("Total members:", len(all_members))
+    gd.save_list_to_file(all_members, 'my_list.txt')
+
+
+
 client.run('MTE4ODk1MjE0OTY1MzIwNTAzMg.Grz3Ed.aQ-pI_X8fq9M3mJbZV6zckLEX6lV-c1oegKXxE')
