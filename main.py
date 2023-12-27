@@ -27,8 +27,10 @@ async def on_ready():
 
     print("All members in voice channels:", all_members)
     print("Total members:", len(all_members))
-    gd.save_list_to_file(all_members, 'my_list.txt')
 
+    for member in all_members:
+        print(gd.get_before_at(member))
+        print(gd.get_after_at(member))
 
 
 client.run('MTE4ODk1MjE0OTY1MzIwNTAzMg.Grz3Ed.aQ-pI_X8fq9M3mJbZV6zckLEX6lV-c1oegKXxE')
