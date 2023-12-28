@@ -1,21 +1,24 @@
 import discord
 import global_def as gd
+from datetime import datetime
 
-CHANNEL_ID = 1071803555926790177
+
+CHANNEL_ID = 1071803555926790177 # server id
+CLIENT_ID = 332468315895365632 # user id (client id)
 
 intents = discord.Intents.default()
 intents.guilds = True
-intents.members = True  # 멤버 목록을 가져오기 위해 필요
+intents.members = True  # Subscribe to the privileged members intent.
 client = discord.Client(intents=intents)
 
 @client.event
 async def on_ready():
-    all_members = []  # 모든 멤버들을 저장할 리스트
+    all_members = []  # list for all members in voice channels
     print(f'Logged in as {client.user}!')
-    for guild in client.guilds:  # 연결된 모든 서버(길드)를 순회
+    for guild in client.guilds:  # traverse all guilds that bot is in
         if guild.name != 'Discord Bot Project':
             print(f'Looking in guild: {guild.name}')
-            for channel in guild.voice_channels:  # 해당 서버의 모든 음성 채널을 순회
+            for channel in guild.voice_channels:  # traverse all voice channels in the guild
                 print(f'Checking voice channel: {channel.name}')
                 members = channel.members
                 if members:
@@ -43,8 +46,12 @@ async def on_ready():
     else:
         print(f"Channel with ID {CHANNEL_ID} not found.")
     
+    user = await client.fetch_user(CLIENT_ID)  # get the user object
 
+    today_date = datetime.today().strftime('%Y-%m-%d')
+    FILE_PATH = 'backup' + today_date + '/members.csv'
+    with open(FILE_PATH, 'rb') as file:  # open the file
+        await user.send(file=discord.File(file, 'filename.csv'))  # send it to the user
     
-
 
 client.run('MTE4ODk1MjE0OTY1MzIwNTAzMg.Grz3Ed.aQ-pI_X8fq9M3mJbZV6zckLEX6lV-c1oegKXxE')
