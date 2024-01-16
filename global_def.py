@@ -1,7 +1,7 @@
 # Python code to save a list to a .txt file including the brackets
 import re
 import os
-from datetime import datetime, timedelta
+from datetime import datetime
 from collections import defaultdict
 import pandas as pd 
 
